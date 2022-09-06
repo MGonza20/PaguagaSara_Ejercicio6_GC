@@ -20,6 +20,27 @@ def subtractVectors(v1, v2):
     return [(v1x - v2x), (v1y - v2y), (v1z - v2z)]
 
 
+def subtractVList(v1, v2):
+
+    if len(v1) == 3:
+        v1x, v1y, v1z = v1[0], v1[1], v1[2]
+        v2x, v2y, v2z = v2[0], v2[1], v2[2]
+
+        return [(v1x - v2x), (v1y - v2y), (v1z - v2z)]
+
+    elif len(v1) == 2:
+        v1x, v1y = v1[0], v1[1]
+        v2x, v2y = v2[0], v2[1]
+
+        return [(v1x - v2x), (v1y - v2y)]
+
+def addVectors(v1, v2):
+    v1x, v1y, v1z = v1[0], v1[1], v1[2]
+    v2x, v2y, v2z = v2[0], v2[1], v2[2]
+
+    return [(v1x + v2x), (v1y + v2y), (v1z + v2z)]
+
+
 def crossProduct(v1, v2):
     v1x, v1y, v1z = v1[0], v1[1], v1[2]
     v2x, v2y, v2z = v2[0], v2[1], v2[2]

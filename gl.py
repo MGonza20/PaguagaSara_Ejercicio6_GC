@@ -1,7 +1,8 @@
 import struct
 from collections import namedtuple
+from mathLib import addVectors, dotProduct
+
 from mathLib import *
-import math
 
 from math import cos, sin, tan, pi
 
@@ -57,6 +58,8 @@ class Raytracer(object):
         self.camPosition = V3(0,0,0)
 
         self.scene = [ ]
+        self.lights = [ ]
+
 
         self.clearColor = color(0,0,0)
         self.currColor = color(1,1,1)
@@ -94,23 +97,81 @@ class Raytracer(object):
         if (0 <= x < self.width) and (0 <= y < self.height):
             self.pixels[x][y] = clr or self.currColor
 
-    def scene_intersect(self, orig, dir):
-        intersect = False
+    def scene_intersect(self, orig, dir, sceneObj):
+        depth = float('inf')
+        intersect = None
 
         for obj in self.scene:
-            intersect = obj.ray_intersect(orig, dir)
-            if intersect == True:
-                break
+            hit = obj.ray_intersect(orig, dir)
+            if hit != None:
+                if sceneObj != hit.sceneObj:
+                    if hit.distance < depth:
+                        intersect = hit
+                        depth = hit.distance
 
         return intersect
 
     def cast_ray(self, orig, dir):
-        interesect = self.scene_intersect(orig, dir)
+        intersect = self.scene_intersect(orig, dir, None)
 
-        if interesect:
-            return self.currColor
-        else:
+        if intersect == None:
             return None
+
+        material = intersect.sceneObj.material
+
+        finalColor = [0,0,0]
+        objectColor = [material.diffuse[0],
+                       material.diffuse[1],
+                       material.diffuse[2]]
+
+        dirLightColor = [0,0,0]
+        ambLightColor = [0,0,0]
+
+
+        for light in self.lights:
+            if light.lightType == 0: # directional light
+                diffuseColor = [0,0,0]
+
+                light_dir = [light.direction[0]*-1, 
+                             light.direction[1]*-1, 
+                             light.direction[2]*-1]
+                intensity = dotProduct(intersect.normal, light_dir)
+                intensity = float(max(0, intensity))
+
+                diffuseColor = [intensity * light.color[0] * light.intensity,
+                                intensity * light.color[1] * light.intensity,
+                                intensity * light.color[2] * light.intensity]
+
+                #Shadows
+                shadow_intensity = 0
+                shadow_intersect = self.scene_intersect(intersect.point, light_dir, intersect.sceneObj)
+                if shadow_intersect:
+                    shadow_intensity = 1
+
+
+                dirLightColor = addVectors(dirLightColor, [diffuseColor[0] * (1 - shadow_intensity),
+                                                           diffuseColor[1] * (1 - shadow_intensity),
+                                                           diffuseColor[2] * (1 - shadow_intensity)])
+
+            elif light.lightType == 2: # ambient light
+                ambLightColor = [light.color[0] * light.intensity,
+                                 light.color[1] * light.intensity,
+                                 light.color[2] * light.intensity]
+
+        finalColor = addVectors(dirLightColor, ambLightColor)
+
+        finalColorArr = [finalColor[0] * objectColor[0],
+                         finalColor[1] * objectColor[1],
+                         finalColor[2] * objectColor[2]]
+
+        r = min(1, finalColorArr[0])
+        g = min(1, finalColorArr[1])
+        b = min(1, finalColorArr[2])
+
+        return (r,g,b)
+
+
+
 
     def glRender(self):
         for y in range(self.vpY, self.vpY + self.vpHeight + 1):
@@ -121,7 +182,7 @@ class Raytracer(object):
                 Py = ((y + 0.5 - self.vpY) / self.vpHeight) * 2 - 1
 
                 # Proyeccion
-                t = tan((self.fov * math.pi / 180) / 2) * self.nearPlane
+                t = tan((self.fov * pi / 180) / 2) * self.nearPlane
                 r = t * self.vpWidth / self.vpHeight
 
                 Px *= r
@@ -132,7 +193,8 @@ class Raytracer(object):
 
                 rayColor = self.cast_ray(self.camPosition, direction)
 
-                if rayColor:
+                if rayColor is not None:
+                    rayColor = color(rayColor[0],rayColor[1],rayColor[2])
                     self.glPoint(x, y, rayColor)
 
 
@@ -165,9 +227,3 @@ class Raytracer(object):
             for y in range(self.height):
                 for x in range(self.width):
                     file.write(self.pixels[x][y])
-
-
-
-
-
-

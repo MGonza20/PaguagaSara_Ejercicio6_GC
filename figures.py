@@ -1,19 +1,34 @@
 
 from mathLib import *
 
+WHITE = (1,1,1)
+BLACK = (0,0,0)
+
+class Intersect(object):
+    def __init__(self, distance, point, normal, sceneObj):
+        self.distance = distance
+        self.point = point
+        self.normal = normal
+        self.sceneObj = sceneObj
+
+class Material(object):
+    def __init__(self, diffuse = WHITE):
+        self.diffuse = diffuse
+
+
 class Sphere(object):
-    def __init__(self, center, radius):
+    def __init__(self, center, radius, material):
         self.center = center
         self.radius = radius
+        self.material = material
 
     def ray_intersect(self, orig, dir):
-        L = subtractVectors(self.center, orig)
-        
+        L = subtractVList(self.center, orig)
         tca = dotProduct(L, dir)
         d = (norm(L) ** 2 - tca ** 2) ** 0.5
 
         if d > self.radius:
-            return False
+            return None
 
         thc = (self.radius ** 2 - d ** 2) ** 0.5
 
@@ -23,6 +38,14 @@ class Sphere(object):
         if t0 < 0:
             t0 = t1
         if t0 < 0:
-            return False
+            return None
         
-        return True
+        # P = O + t0 * D
+        P = addVectors(orig, [t0*dir[0], t0*dir[1], t0*dir[2]])
+        normal = subtractVList(P, self.center)
+        normal = normV(normal)
+
+        return Intersect(distance = t0,
+                         point = P,
+                         normal = normal,
+                         sceneObj = self)

@@ -1,10 +1,14 @@
 from gl import Raytracer, V3
 from figures import *
 from lights import *
+from texture import Texture
+
 
 
 width = 1024
 height = 1024
+
+
 
 # Materiales
 
@@ -18,6 +22,9 @@ carrot = Material(diffuse=(252/255, 75/255, 45/255))
 eyes = Material(diffuse=(222/255, 215/255, 217/255))
 
 rtx = Raytracer(width, height)
+
+rtx.background = Texture("back.bmp")
+rtx.glClearBackground()
 
 rtx.lights.append( AmbientLight( ))
 rtx.lights.append( DirectionalLight(direction = (-1,-1,-1) ))

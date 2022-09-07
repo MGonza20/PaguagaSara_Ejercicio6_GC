@@ -13,7 +13,6 @@ stone = Material(diffuse = (0.4, 0.4, 0.4))
 grass = Material(diffuse = (0.3, 1, 0.3))
 snow = Material(diffuse = (1, 0.98039215686, 0.98039215686))
 button = Material(diffuse = (0.2, 0.2, 0.2))
-s
 
 
 rtx = Raytracer(width, height)
@@ -23,7 +22,7 @@ rtx.lights.append( DirectionalLight(direction = (-1,-1,-1) ))
 
 
 # Button 3
-rtx.scene.append( Sphere(V3(0, -1.3, -7.7), 0.45, button))
+rtx.scene.append( Sphere(V3(0, -1.3, -7.7), 0.4, button))
 # Ball 3
 rtx.scene.append( Sphere(V3(0, -2, -9.5), 1.75, snow))
 

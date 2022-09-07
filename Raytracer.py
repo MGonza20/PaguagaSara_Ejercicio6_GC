@@ -23,21 +23,21 @@ rtx.lights.append( DirectionalLight(direction = (-1,-1,-1) ))
 
 
 # Nose
-rtx.scene.append( Sphere(V3(0, 1.8, -7.7), 0.3, carrot))
+rtx.scene.append( Sphere(V3(0, 1.85, -8.2), 0.25, carrot))
 
 
 # Mouth
 # Dot 1
-rtx.scene.append( Sphere(V3(-0.35, 1.5-0.1, -7.7), 0.08, button))
+rtx.scene.append( Sphere(V3(-0.35, 1.5+.1, -8.5), 0.08, button))
 
 # Dot 2
-rtx.scene.append( Sphere(V3(-0.35+0.2, 1.5-0.2-0.1, -7.7), 0.08, button))
+rtx.scene.append( Sphere(V3(-0.35+0.2, 1.5-0.2+.1, -8.7), 0.08, button))
 
 # Dot 3
-rtx.scene.append( Sphere(V3(0.35-0.2, 1.5-0.25-0.1, -7.4), 0.08, button2))
+rtx.scene.append( Sphere(V3(0.35-0.2, 1.5-0.2+.1, -8.7), 0.08, button2))
 
 #Dot 4
-rtx.scene.append( Sphere(V3(0.35, 1.44-0.1, -7.4), 0.08, button2))
+rtx.scene.append( Sphere(V3(0.35, 1.5+.1, -8.5), 0.08, button2))
 
 
 # Body

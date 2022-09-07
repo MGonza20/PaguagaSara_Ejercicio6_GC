@@ -11,10 +11,6 @@ height = 1024
 
 
 # Materiales
-
-brick = Material(diffuse = (0.8, 0.3, 0.3))
-stone = Material(diffuse = (0.4, 0.4, 0.4))
-grass = Material(diffuse = (0.3, 1, 0.3))
 snow = Material(diffuse = (1, 0.98039215686, 0.98039215686))
 button = Material(diffuse = (0.2, 0.2, 0.2))
 button2 = Material(diffuse = (0.3, 0.3, 0.3))
@@ -23,7 +19,7 @@ eyes = Material(diffuse=(222/255, 215/255, 217/255))
 
 rtx = Raytracer(width, height)
 
-rtx.background = Texture("back.bmp")
+rtx.background = Texture("background.bmp")
 rtx.glClearBackground()
 
 rtx.lights.append( AmbientLight( ))

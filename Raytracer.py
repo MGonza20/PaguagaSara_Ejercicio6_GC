@@ -33,7 +33,7 @@ rtx.scene.append( Sphere(V3(0.32, 2.4, -9.1), 0.3, eyes))
 rtx.scene.append( Sphere(V3(0.38, 2.5, -8.9), 0.125, button))
 
 # Nose
-rtx.scene.append( Sphere(V3(0, 1.85+0.1, -8.2-0.4), 0.25, carrot))
+rtx.scene.append( Sphere(V3(0, 1.85+0.15, -8.2-0.5), 0.25, carrot))
 
 
 # Mouth

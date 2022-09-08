@@ -6,4 +6,5 @@ Código para renderizar esferas por medio de un Ray Intersect Algorithm, utiliza
 
 ## Resultado
 
-![Result](https://user-images.githubusercontent.com/64711979/188980518-2f22b1d4-2c72-4df5-8cbe-81a4f77af40f.png)
+![snowman-img](https://user-images.githubusercontent.com/64711979/189034489-1e67297a-791f-4ab6-9393-f0a49f2439ac.png)
+

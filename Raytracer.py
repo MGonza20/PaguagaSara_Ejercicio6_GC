@@ -33,21 +33,21 @@ rtx.scene.append( Sphere(V3(0.32, 2.4, -9.1), 0.3, eyes))
 rtx.scene.append( Sphere(V3(0.38, 2.5, -8.9), 0.125, button))
 
 # Nose
-rtx.scene.append( Sphere(V3(0, 1.85, -8.2), 0.25, carrot))
+rtx.scene.append( Sphere(V3(0, 1.85+0.1, -8.2-0.4), 0.25, carrot))
 
 
 # Mouth
 # Dot 1
-rtx.scene.append( Sphere(V3(-0.35, 1.5+.1, -8.5), 0.08, button))
+rtx.scene.append( Sphere(V3(-0.35, 1.5+.15, -8.5-0.35), 0.08, button))
 
 # Dot 2
-rtx.scene.append( Sphere(V3(-0.35+0.2, 1.5-0.2+.1, -8.7), 0.08, button))
+rtx.scene.append( Sphere(V3(-0.35+0.2, 1.5-0.2+.15, -8.7-0.2), 0.08, button))
 
 # Dot 3
-rtx.scene.append( Sphere(V3(0.35-0.2, 1.5-0.2+.1, -8.7), 0.08, button2))
+rtx.scene.append( Sphere(V3(0.35-0.2, 1.5-0.2+.15, -8.7-0.2), 0.08, button2))
 
 #Dot 4
-rtx.scene.append( Sphere(V3(0.35, 1.5+.1, -8.5), 0.08, button2))
+rtx.scene.append( Sphere(V3(0.35, 1.5+.15, -8.5-0.35), 0.08, button2))
 
 
 # Body
@@ -72,5 +72,3 @@ rtx.scene.append( Sphere(V3(0, 0, -10), 1.5, snow))
 rtx.glRender()
 
 rtx.glFinish("output.bmp")
-
-##
